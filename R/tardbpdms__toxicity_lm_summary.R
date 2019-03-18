@@ -118,7 +118,7 @@ tardbpdms__toxicity_lm_summary <- function(
   if(!is.null(colour_scheme)){
     d <- d + ggplot2::scale_colour_manual(values = unlist(colour_scheme, use.names = FALSE)[1:4])
   }
-  ggplot2::ggsave(file=output_file, width=width, height=height)
+  suppressWarnings(suppressMessages(ggplot2::ggsave(file=output_file, width=width, height=height)))
   if(return_results){
     return(rsq_list)
   }

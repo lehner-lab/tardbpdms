@@ -27,6 +27,9 @@ tardbpdms_human_disease_mutations <- function(
 		return()
 	}
 
+  #Display status
+  message(paste("\n\n*******", "running stage: tardbpdms_human_disease_mutations", "*******\n\n"))
+
 	#Create output directory
 	tardbpdms__create_dir(tardbpdms_dir = outpath)
 

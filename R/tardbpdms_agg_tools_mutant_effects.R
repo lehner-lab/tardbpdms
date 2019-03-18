@@ -24,6 +24,9 @@ tardbpdms_agg_tools_mutant_effects <- function(
 		return(dms_dt_aggtool)
 	}
 
+	#Display status
+	message(paste("\n\n*******", "running stage: tardbpdms_agg_tools_mutant_effects", "*******\n\n"))
+
 	#Create output directory
 	tardbpdms__create_dir(tardbpdms_dir = outpath)
 

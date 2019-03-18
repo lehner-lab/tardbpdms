@@ -57,6 +57,9 @@ tardbpdms_PWI_heatmaps <- function(
 		return()
 	}
 
+  #Display status
+  message(paste("\n\n*******", "running stage: tardbpdms_PWI_heatmaps", "*******\n\n"))
+
 	#Create output directory
 	tardbpdms__create_dir(tardbpdms_dir = outpath)
 

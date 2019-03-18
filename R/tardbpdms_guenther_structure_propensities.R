@@ -5,8 +5,11 @@
 #'
 #' @param result_dir directory with Guenther structure match results (required)
 #' @param outpath output path for plots and saved objects (required)
+#' @param miscpath path to misc scripts and data directory (required)
+#' @param DMS2structure_path Path to DMS2structure repository (required)
 #' @param colour_scheme colour scheme file (required)
 #' @param execute whether or not to execute the analysis (default: TRUE)
+#' @param rerun_structure re-run structure analysis? (default:F)
 #'
 #' @return Nothing
 #' @export
@@ -14,8 +17,11 @@
 tardbpdms_guenther_structure_propensities <- function(
   result_dir,
   outpath,
+  miscpath,
+  DMS2structure_path,
   colour_scheme,
-  execute = TRUE
+  execute = TRUE,
+  rerun_structure = F
   ){
 
 	#Return previous results if analysis not executed
@@ -23,8 +29,35 @@ tardbpdms_guenther_structure_propensities <- function(
 		return()
 	}
 
+  #Display status
+  message(paste("\n\n*******", "running stage: tardbpdms_guenther_structure_propensities", "*******\n\n"))
+
 	#Create output directory
 	tardbpdms__create_dir(tardbpdms_dir = outpath)
+
+	### Re-run structure analysis
+	###########################
+
+	if(rerun_structure){
+
+	  #Display status
+	  message(paste("\n\n*******", "re-running structure propensity calculations (this might take a while)", "*******\n\n"))
+
+	  #Create output directory
+	  tardbpdms__create_dir(tardbpdms_dir = file.path(miscpath, "misc_guenther_structures"))
+
+		#Run misc script on command-line
+	  system(paste0(
+	  	file.path(miscpath, "scripts", "tardbpdms__guenther_structures.R"),
+	  	" -o ",
+	  	file.path(miscpath, "misc_guenther_structures"),
+	  	" -d ",
+	  	DMS2structure_path,
+	  	" -e ",
+	  	file.path(miscpath, "misc_epistasis_analysis"),
+	  	" -p ",
+	  	file.path(miscpath, "pdb")))
+	}
 
 	### Setup
 	###########################

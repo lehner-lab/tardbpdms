@@ -4,20 +4,24 @@
 #' Secondary structure predictions.
 #'
 #' @param toxicity_dt data.table with single and double mutant toxicity values (required)
-#' @param ss_result_file RData object with secondary structure 'result_list' data.table (required)
 #' @param outpath output path for plots and saved objects (required)
+#' @param miscpath path to misc scripts and data directory (required)
+#' @param DMS2structure_path Path to DMS2structure repository (required)
 #' @param colour_scheme colour scheme file (required)
 #' @param execute whether or not to execute the analysis (default: TRUE)
+#' @param rerun_structure re-run structure analysis? (default:F)
 #'
 #' @return Nothing
 #' @export
 #' @import data.table
 tardbpdms_secondary_structure_predictions <- function(
   toxicity_dt,
-  ss_result_file,
   outpath,
+  miscpath,
+  DMS2structure_path,
   colour_scheme,
-  execute = TRUE
+  execute = TRUE,
+  rerun_structure = F
   ){
 
 	#Return previous results if analysis not executed
@@ -25,14 +29,39 @@ tardbpdms_secondary_structure_predictions <- function(
 		return()
 	}
 
+  #Display status
+  message(paste("\n\n*******", "running stage: tardbpdms_secondary_structure_predictions", "*******\n\n"))
+
 	#Create output directory
 	tardbpdms__create_dir(tardbpdms_dir = outpath)
+
+	### Re-run structure analysis
+	###########################
+
+	if(rerun_structure){
+
+	  #Display status
+	  message(paste("\n\n*******", "re-running structure predictions (this might take a while)", "*******\n\n"))
+
+	  #Create output directory
+	  tardbpdms__create_dir(tardbpdms_dir = file.path(miscpath, "misc_secondary_structure"))
+
+		#Run misc script on command-line
+	  system(paste0(
+	  	file.path(miscpath, "scripts", "tardbpdms__secondary_structure.R"),
+	  	" -o ",
+	  	file.path(miscpath, "misc_secondary_structure"),
+	  	" -d ",
+	  	DMS2structure_path,
+	  	" -e ",
+	  	file.path(miscpath, "misc_epistasis_analysis")))
+	}
 
 	### Setup
 	###########################
 
 	#Load secondary structure predictions
-	load(ss_result_file)
+	load(file.path(miscpath, "misc_secondary_structure", "result_list.RData"))
 	ss_dt <- rbind(
 		result_list[["PWI_cond_290"]][["secondary_structure_score"]][["association_score"]][, region := "290"][, score_type := "association_score"],
 		result_list[["PWI_cond_290"]][["secondary_structure_score"]][["posE_pcor"]][, region := "290"][, score_type := "posE_pcor"],

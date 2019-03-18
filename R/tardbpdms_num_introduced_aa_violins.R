@@ -23,6 +23,9 @@ tardbpdms_num_introduced_aa_violins <- function(
 		return()
 	}
 
+  #Display status
+  message(paste("\n\n*******", "running stage: tardbpdms_num_introduced_aa_violins", "*******\n\n"))
+
 	#Create output directory
 	tardbpdms__create_dir(tardbpdms_dir = outpath)
 

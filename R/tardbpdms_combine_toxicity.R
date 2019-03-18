@@ -26,6 +26,9 @@ tardbpdms_combine_toxicity <- function(
 		return(dms_dt_center_scale)
 	}
 
+	#Display status
+	message(paste("\n\n*******", "running stage: tardbpdms_combine_toxicity", "*******\n\n"))
+
 	#Create output directory
 	tardbpdms__create_dir(tardbpdms_dir = outpath)
 	

@@ -78,7 +78,7 @@ tardbpdms__scale_toxicity <- function(
 	  ggplot2::geom_abline(color="yellow",linetype=2) + 
 	  ggplot2::scale_x_log10() + 
 	  ggplot2::scale_y_log10()
-	ggplot2::ggsave(file.path(outpath, "replicateerror_vs_avgsigma.pdf"), width = 7, height = 5)
+	suppressWarnings(suppressMessages(ggplot2::ggsave(file.path(outpath, "replicateerror_vs_avgsigma.pdf"), width = 7, height = 5)))
 
 	#print(replicate_error)
 
@@ -95,7 +95,7 @@ tardbpdms__scale_toxicity <- function(
 	  ggplot2::geom_hex() + 
 	  ggplot2::scale_y_log10() + 
 	  ggplot2::coord_cartesian(ylim=c(0.01,1))
-	suppressWarnings(suppressMessages(ggplot2::ggsave(file.path(outpath, "sigma_vs_fitness_singles.pdf"), width = 5, height = 5)))
+	ggplot2::ggsave(file.path(outpath, "sigma_vs_fitness_singles.pdf"), width = 5, height = 5)
 
 	#### doubles
 	#uncorrected fitness
@@ -108,7 +108,7 @@ tardbpdms__scale_toxicity <- function(
 	  ggplot2::geom_hex() + 
 	  ggplot2::scale_y_log10() + 
 	  ggplot2::coord_cartesian(ylim=c(0.01,1))
-	suppressWarnings(suppressMessages(ggplot2::ggsave(file.path(outpath, "sigma_vs_fitness_doubles_uncorr.pdf"), width = 5, height = 5)))
+	ggplot2::ggsave(file.path(outpath, "sigma_vs_fitness_doubles_uncorr.pdf"), width = 5, height = 5)
 
 	#### doubles
 	#conditioned fitness

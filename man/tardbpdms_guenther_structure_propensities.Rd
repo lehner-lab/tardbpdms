@@ -4,17 +4,24 @@
 \alias{tardbpdms_guenther_structure_propensities}
 \title{tardbpdms_guenther_structure_propensities}
 \usage{
-tardbpdms_guenther_structure_propensities(result_dir, outpath,
-  colour_scheme, execute = TRUE)
+tardbpdms_guenther_structure_propensities(result_dir, outpath, miscpath,
+  DMS2structure_path, colour_scheme, execute = TRUE,
+  rerun_structure = F)
 }
 \arguments{
 \item{result_dir}{directory with Guenther structure match results (required)}
 
 \item{outpath}{output path for plots and saved objects (required)}
 
+\item{miscpath}{path to misc scripts and data directory (required)}
+
+\item{DMS2structure_path}{Path to DMS2structure repository (required)}
+
 \item{colour_scheme}{colour scheme file (required)}
 
 \item{execute}{whether or not to execute the analysis (default: TRUE)}
+
+\item{rerun_structure}{re-run structure analysis? (default:F)}
 }
 \value{
 Nothing

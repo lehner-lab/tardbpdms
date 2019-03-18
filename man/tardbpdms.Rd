@@ -5,7 +5,10 @@
 \title{tardbpdms}
 \usage{
 tardbpdms(startStage = 1, stopStage = 0,
-  base_dir = "/users/blehner/afaure/DMS/Results/tardbpdms_proj")
+  base_dir = "/users/blehner/afaure/DMS/Results/tardbpdms_proj",
+  DMS2structure_path = "/users/blehner/afaure/DMS/Code/DMS2structure",
+  rerun_fitness = F, rerun_epistasis = F, rerun_structure = F,
+  numCores = 10)
 }
 \arguments{
 \item{startStage}{Start at a specified analysis stage (default:1)}
@@ -13,6 +16,16 @@ tardbpdms(startStage = 1, stopStage = 0,
 \item{stopStage}{Stop at a specified analysis stage (default:0 i.e. no stop condition)}
 
 \item{base_dir}{Base directory for all output file (default:NB private CRG server path; change accordingly)}
+
+\item{DMS2structure_path}{Path to DMS2structure repository (default:NB private CRG server path; change accordingly)}
+
+\item{rerun_fitness}{re-run fitness analysis? (default:F)}
+
+\item{rerun_epistasis}{re-run epistasis analysis? (default:F)}
+
+\item{rerun_structure}{re-run structure analysis? (default:F)}
+
+\item{numCores}{Number of available CPU cores (default:10)}
 }
 \value{
 Nothing

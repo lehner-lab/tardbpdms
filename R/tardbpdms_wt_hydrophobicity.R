@@ -29,6 +29,9 @@ tardbpdms_wt_hydrophobicity <- function(
 		return()
 	}
 
+  #Display status
+  message(paste("\n\n*******", "running stage: tardbpdms_wt_hydrophobicity", "*******\n\n"))
+
 	#Create output directory
 	tardbpdms__create_dir(tardbpdms_dir = outpath)
 
