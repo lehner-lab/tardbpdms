@@ -9,6 +9,7 @@ Here you'll find an R package with all scripts to reproduce the figures and resu
 To run the tardbpdms pipeline you will need the following software and associated packages:
 
 * **[R](https://www.r-project.org/) >=v3.5.2** (data.table, ggplot2, parallel, plyr, reshape2, lemon, Biostrings, GGally, ppcor)
+* **[DMS2structure](https://github.com/lehner-lab/DMS2structure)** Scripts used for the analysis of deep mutational scanning data in Schmiedel & Lehner, bioRxiv 2018 
 
 # Installation and loading
 
