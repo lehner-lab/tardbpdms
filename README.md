@@ -51,7 +51,7 @@ DiMSum command-line arguments and Experimental design files required to obtain v
 
 * ## Estimating fitness (1-toxicity) from variant counts
 
-Pipeline stage 1 ('tardbpdms_dimsumcounts_to_fitness') estimates toxicity and error of single and double AA mutants from variant counts for each library separately. This stage is computationally intensive (~2hours on 10 cores) and is therefore not run by default. When running the pipeline for the first time or to force re-execution of this stage set 'rerun_fitness = T'.
+Pipeline stage 1 ('tardbpdms_dimsumcounts_to_fitness') estimates toxicity and error of single and double AA mutants from variant counts for each library separately. This stage is computationally intensive (~2hours on 10 cores) and is therefore not run by default. **Note:** When running the pipeline for the first time or to force re-execution of this stage set 'rerun_fitness = T'.
 
 * ## Epistasis analysis
 
