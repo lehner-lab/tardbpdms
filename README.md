@@ -33,7 +33,21 @@ library(tardbpdms)
 
 # Required Data
 
-All pre-processed data and required miscellaneous files should be downloaded from [here](https://www.dropbox.com/s/nbuvtfler395rcd/tardbpdms_misc.zip?dl=0) to your base (project) directory i.e. where output files should be written, and unzipped.
+Variant counts, pre-processed data and required miscellaneous files should be downloaded from [here](https://www.dropbox.com/s/nbuvtfler395rcd/tardbpdms_misc.zip?dl=0) to your project directory (see 'base_dir' argument) i.e. where output files should be written, and unzipped.
+
+# Running
+
+There are a number of options available for running the tardbpdms pipeline depending on user requirements.
+
+## Basic (default)
+
+Default pipeline functionality uses variant counts (see 'Required Data') to reproduce all figures in the publication. Neither **[DiMSum](https://github.com/lehner-lab/DiMSum)** nor **[DMS2structure](https://github.com/lehner-lab/DMS2structure)** packages are required for this default functionality.
+
+## Raw read processing (optional)
+
+FastQ files ([GSE128165](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE128165)) from paired-end sequencing of replicate deep mutational scanning (DMS) libraries before ('input') and after selection ('output') were processed using **[DiMSum](https://github.com/lehner-lab/DiMSum)** (manuscript in prep.), an R package that wraps common biological sequence processing tools.
+
+DiMSum command-line arguments and Experimental design files required to obtain variant counts from FastQ file are available [here](https://www.dropbox.com/sh/dg609u5zalkozpn/AAAnJQKkR_cP5IaaOXOGGtApa?dl=0).
 
 # Pipeline
 
