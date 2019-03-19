@@ -47,7 +47,10 @@ Default pipeline functionality uses variant counts (see 'Required Data') to repr
 
 FastQ files ([GSE128165](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE128165)) from paired-end sequencing of replicate deep mutational scanning (DMS) libraries before ('input') and after selection ('output') were processed using **[DiMSum](https://github.com/lehner-lab/DiMSum)** (manuscript in prep.), an R package that wraps common biological sequence processing tools.
 
-DiMSum command-line arguments and Experimental design files required to obtain variant counts from FastQ file are available [here](https://www.dropbox.com/sh/dg609u5zalkozpn/AAAnJQKkR_cP5IaaOXOGGtApa?dl=0).
+DiMSum command-line arguments and Experimental design files required to obtain variant counts from FastQ files are available [here](https://www.dropbox.com/sh/dg609u5zalkozpn/AAAnJQKkR_cP5IaaOXOGGtApa?dl=0).
+
+* ## Variant counts to fitness estimates i.e. 1-toxicity (optional)
+
 
 # Pipeline
 
