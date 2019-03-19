@@ -43,14 +43,24 @@ There are a number of options available for running the tardbpdms pipeline depen
 
 Default pipeline functionality uses variant counts (see 'Required Data') to reproduce all figures in the publication. Neither **[DiMSum](https://github.com/lehner-lab/DiMSum)** nor **[DMS2structure](https://github.com/lehner-lab/DMS2structure)** packages are required for this default functionality.
 
-* ## Raw read processing (optional)
+* ## Raw read processing
 
-FastQ files ([GSE128165](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE128165)) from paired-end sequencing of replicate deep mutational scanning (DMS) libraries before ('input') and after selection ('output') were processed using **[DiMSum](https://github.com/lehner-lab/DiMSum)** (manuscript in prep.), an R package that wraps common biological sequence processing tools.
+Raw read processing is not handled by the tardbpdms pipeline. FastQ files ([GSE128165](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE128165)) from paired-end sequencing of replicate deep mutational scanning (DMS) libraries before ('input') and after selection ('output') were processed using **[DiMSum](https://github.com/lehner-lab/DiMSum)** (manuscript in prep.), an R package that wraps common biological sequence processing tools.
 
 DiMSum command-line arguments and Experimental design files required to obtain variant counts from FastQ files are available [here](https://www.dropbox.com/sh/dg609u5zalkozpn/AAAnJQKkR_cP5IaaOXOGGtApa?dl=0).
 
-* ## Variant counts to fitness estimates i.e. 1-toxicity (optional)
+* ## Estimating fitness (1-toxicity) from variant counts
 
+Pipeline stage 1 ('tardbpdms_dimsumcounts_to_fitness') estimates toxicity and error of single and double AA mutants from variant counts for each library separately. This stage is computationally intensive (~2hours on 10 cores) and is therefore not run by default. When running the pipeline for the first time or to force re-execution of this stage set 'rerun_fitness = T'.
+
+* ## Epistasis analysis
+
+Pipeline stage 11 ('tardbpdms_epistasis_analysis') performs epistasis calculations separately for each DMS library. This stage is computationally intensive (~1hour on 10 cores) and is therefore not run by default. **Note:** 'Required data' (see above) already includes precomputed results of the epistasis analysis necessary to reproduce the corresponding figures in the publication. However, to force re-execution of this stage set 'rerun_epistasis = T'. Additionally, the correct path to your local copy of the [DMS2structure](https://github.com/lehner-lab/DMS2structure) repository must be specified with 'DMS2structure_path = MY_LOCAL_PATH'.
+
+* ## Structure analyses
+
+Pipeline stages 12 and 13 ('tardbpdms_secondary_structure_predictions', 'tardbpdms_guenther_structure_propensities') perform secondary structure predictions and structure propensity calculations for PDB-structure derived
+contact matrices respectively. Secondary structure predictions and propensity calculations are computationally intensive and are therefore not re-run by default. **Note:** 'Required data' (see above) already includes precomputed results of the structure analyses necessary to reproduce the corresponding figures in the publication. To force re-execution set 'rerun_structure = T'. Additionally, the correct path to your local copy of the [DMS2structure](https://github.com/lehner-lab/DMS2structure) repository must be specified with 'DMS2structure_path = MY_LOCAL_PATH'.
 
 # Pipeline
 
