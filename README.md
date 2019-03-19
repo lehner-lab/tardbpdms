@@ -39,11 +39,11 @@ Variant counts, pre-processed data and required miscellaneous files should be do
 
 There are a number of options available for running the tardbpdms pipeline depending on user requirements.
 
-## Basic (default)
+## * Basic (default)
 
 Default pipeline functionality uses variant counts (see 'Required Data') to reproduce all figures in the publication. Neither **[DiMSum](https://github.com/lehner-lab/DiMSum)** nor **[DMS2structure](https://github.com/lehner-lab/DMS2structure)** packages are required for this default functionality.
 
-## Raw read processing (optional)
+## * Raw read processing (optional)
 
 FastQ files ([GSE128165](https://www.ncbi.nlm.nih.gov/geo/query/acc.cgi?acc=GSE128165)) from paired-end sequencing of replicate deep mutational scanning (DMS) libraries before ('input') and after selection ('output') were processed using **[DiMSum](https://github.com/lehner-lab/DiMSum)** (manuscript in prep.), an R package that wraps common biological sequence processing tools.
 
