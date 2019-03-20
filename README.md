@@ -64,7 +64,7 @@ contact matrices respectively. Secondary structure predictions and propensity ca
 
 # Pipeline
 
-The top-level function **tardbpdms()** is the recommended entry point to the pipeline and reproduces the figures and results from the computational analyses described in the following publication: "The mutational landscape of a prion-like domain" (Bolognesi B & Faure AJ et al., 2019). See section on "Required Data" above for instructions on how to obtain all required data and miscellaneous file before running the pipeline.
+The top-level function **tardbpdms()** is the recommended entry point to the pipeline and reproduces the figures and results from the computational analyses described in the following publication: "The mutational landscape of a prion-like domain" (Bolognesi B & Faure AJ et al., 2019). See section on "Required Data" above for instructions on how to obtain all required data and miscellaneous files before running the pipeline.
 
 ## Stage 1: DiMSum counts to fitness
 
