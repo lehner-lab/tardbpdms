@@ -66,6 +66,7 @@ tardbpdms_human_disease_mutations <- function(
 	#Add mutation information
 	tox_dt[, hmut_cat := "Never observed (gnomAD)"]
 	tox_dt[!is.na(miss_mut[mut_code,2]), hmut_cat := "Observed (gnomAD)"]
+	tox_dt[mut_code %in% rownames(dis_mut), hmut_cat := "other"]
 	tox_dt[mut_code %in% fALS_muts, hmut_cat := "fALS"]
 	tox_dt[mut_code %in% sALS_muts, hmut_cat := "sALS"]
 	tox_dt[mut_code %in% sALS_muts & mut_code %in% fALS_muts, hmut_cat := "fALS and sALS"]
@@ -76,10 +77,11 @@ tardbpdms_human_disease_mutations <- function(
 	###########################
 
 	#Toxicity histogram of all single and double observed versus unobserved human missense mutations
-	tox_bias_all <- tox_dt[hmut_cat %in% c("fALS", "sALS", "fALS and sALS"),.(pvalue = wilcox.test(toxicity)$p.value, n = .N)]
+	tox_bias_all <- tox_dt[hmut_cat %in% c("fALS", "sALS", "fALS and sALS", "other"),.(pvalue = wilcox.test(toxicity)$p.value, n = .N)]
 	tox_bias_fALSr <- tox_dt[hmut_cat %in% c("fALS") & hmut_recurrent==T,.(pvalue = wilcox.test(toxicity)$p.value, n = .N)]
 	set.seed(1)
 	plot_df <- as.data.frame(tox_dt[,c("toxicity", "Nmut_aa", "STOP", "hmut_cat", "hmut_recurrent")])
+	plot_df[,"hmut_cat"] <- factor(plot_df[,"hmut_cat"], levels = c("fALS", "sALS", "fALS and sALS", "other", "Never observed (gnomAD)", "Observed (gnomAD)"))
   d <- ggplot2::ggplot(plot_df, ggplot2::aes(toxicity, ..density..)) +
     ggplot2::geom_density() +
     ggplot2::geom_jitter(data = plot_df[!grepl("gnomAD", plot_df[,"hmut_cat"]),], ggplot2::aes(x = toxicity, y = toxicity*0-1, color = hmut_cat, shape = hmut_recurrent)) +
