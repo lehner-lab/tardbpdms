@@ -128,6 +128,37 @@ tardbpdms_aa_properties_mutant_effects <- function(
 	for(i in 1:top_PCs){doubles_dt[, (paste0('PC', i)) := scale(.SD, scale=top_PC_signs[i], center=F),,.SDcols = paste0('PC', i)]}
 	names(doubles_dt)[grep("^PC", names(doubles_dt))][1:5] <- paste0(names(doubles_dt)[grep("^PC", names(doubles_dt))][1:5], " (", top_PC_names, ")")
 
+	# ### Hydrophobicity scales correlation with single mutants in hotspot
+	# ###########################
+
+	# #Single AA mutants only (no STOPs)
+	# singles_dt_aaprop <- copy(singles_dt)
+	# #Fitness hotspot positions
+	# mean_toxicity <- singles_dt_aaprop[STOP==F,mean(abs(toxicity))]
+	# Pos_abs_hotspot <- singles_dt_aaprop[Nmut_aa==1 & !STOP,.(hotspot = mean(abs(toxicity))>mean_toxicity),by=Pos_abs][hotspot==T,Pos_abs]
+	# singles_dt_aaprop[, hotspot := as.numeric(Pos_abs %in% Pos_abs_hotspot)*2]
+
+	# #Single mutant AA properties
+	# singles_dt_aaprop <- tardbpdms__aa_properties_singles_loadings(
+	# 	input_dt = singles_dt_aaprop,
+ #  	aa_properties_file = aaprop_file, 
+ #  	selected_identifiers = unlist(fread(aaprop_file_selected, header = F)))
+
+	# #Single mutants in hotspot hydrophobicity scales
+	# singles_dt_hydro <- singles_dt_aaprop[hotspot == 2,.SD,,.SDcols = c("toxicity", paste0(names(aa_evidences)[feature_type=="1_hydrophobic/Hydrophobic"], "_score"))]
+	# names(singles_dt_hydro) <- gsub("_score$", "", names(singles_dt_hydro))
+
+	# #Barplot of R-squared for all scales
+	# plot_df <- data.frame(
+	# 	r_squared = c(cor(singles_dt_hydro)[1,-1]^2, singles_dt_aaprop[hotspot == 2,cor(.SD[[1]], .SD[[2]])^2,,.SDcols = c("toxicity", "PC1 (Hydrophobicity)")]),
+	# 	scale = c(paste0(unlist(names(singles_dt_hydro)[-1]), ":", unlist(aa_evidences[names(singles_dt_hydro)[-1]])), "PC1 (Hydrophobicity"))
+	# plot_df[,"scale"] <- factor(plot_df[,"scale"], levels = plot_df[order(plot_df[,"r_squared"], decreasing = T),"scale"])
+	# d <- ggplot2::ggplot(plot_df, ggplot2::aes(scale, r_squared)) +
+	#   ggplot2::geom_bar(stat = "identity") +
+	#   ggplot2::theme_bw() +
+ #    ggplot2::theme(axis.text.x=ggplot2::element_text(angle = 90, hjust = 1, vjust = 0.5))
+	# ggplot2::ggsave(file=file.path(outpath, 'hydrophobicity_scales_correlations.pdf'), width=5, height=10)
+
 	### Merge 
 	###########################
 

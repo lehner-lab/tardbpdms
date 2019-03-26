@@ -5,7 +5,7 @@
 \title{tardbpdms_agg_tools_mutant_effects}
 \usage{
 tardbpdms_agg_tools_mutant_effects(toxicity_dt, outpath,
-  aggtool_results_file, execute = TRUE)
+  aggtool_results_file, aggscale_file, colour_scheme, execute = TRUE)
 }
 \arguments{
 \item{toxicity_dt}{data.table with single and double mutant codes (required)}
@@ -13,6 +13,10 @@ tardbpdms_agg_tools_mutant_effects(toxicity_dt, outpath,
 \item{outpath}{output path for plots and saved objects (required)}
 
 \item{aggtool_results_file}{path to aggregation tool results file (required)}
+
+\item{aggscale_file}{path to aggregation scale file (required)}
+
+\item{colour_scheme}{colour scheme file (required)}
 
 \item{execute}{whether or not to execute the analysis (default: TRUE)}
 }

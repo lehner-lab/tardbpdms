@@ -111,7 +111,9 @@ tardbpdms <- function(
 	toxicity_aggtools_dt <- tardbpdms_agg_tools_mutant_effects(
 		toxicity_dt = toxicity_aaprop_dt,
 		aggtool_results_file = file.path(base_dir, "misc", "aggregation_tools_results.RData"),
+		aggscale_file = file.path(base_dir, "misc", "amino_acid_properties", "aggregation_scales.txt"),
 		outpath = tardbpdms__format_dir(dir_suffix="_tardbpdms_agg_tools_mutant_effects", stagenum=stagenum, base_dir=base_dir),
+		colour_scheme = colour_scheme,
 		execute = (first_stage <= stagenum & (last_stage == 0 | last_stage >= stagenum)))
 
 	#Single mutant heatmaps

@@ -5,7 +5,8 @@
 \title{tardbpdms__aa_properties_pca}
 \usage{
 tardbpdms__aa_properties_pca(aa_properties_file,
-  selected_identifiers = NULL, return_evidences = F)
+  selected_identifiers = NULL, return_evidences = F,
+  return_matrix_only = F)
 }
 \arguments{
 \item{aa_properties_file}{path to amino acid properties file (required)}
@@ -13,6 +14,8 @@ tardbpdms__aa_properties_pca(aa_properties_file,
 \item{selected_identifiers}{path to file with selected subset of identifiers}
 
 \item{return_evidences}{return AA properties evidences (default:F)}
+
+\item{return_matrix_only}{only return AA properties matrix (default:F)}
 }
 \value{
 results from PCA

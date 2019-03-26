@@ -34,7 +34,7 @@ tardbpdms_dimsumcounts_to_fitness <- function(
   }
 
   #Display status
-  message(paste("\n\n*******", "running stage: tardbpdms_dimsumcounts_to_fitness", "*******\n\n"))
+  message(paste("\n\n*******", "running stage: tardbpdms_dimsumcounts_to_fitness (this might take a while; you may want to adjust 'numCores' argument, DEFAULT=10)", "*******\n\n"))
 
   #Create output directory
   tardbpdms__create_dir(tardbpdms_dir = outpath)

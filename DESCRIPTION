@@ -1,6 +1,6 @@
 Package: tardbpdms
 Title: Analysis scripts for processing TDP-43 DMS data from Bolognesi et al. 2019.
-Version: 0.1.0.9000
+Version: 0.2.0.9000
 Authors@R: c(
     person("Andre", "Faure", email = "ajfaure@gmail.com", role = c("aut", "cre")))
 Description: Analysis scripts for processing TARDBP deep mutational scanning (DMS) data from Bolognesi et al. 2019. 
