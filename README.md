@@ -1,6 +1,6 @@
 # Overview
 
-Welcome to the GitHub repository for the following publication: "The mutational landscape of a prion-like domain" (Bolognesi B & Faure AJ et al., 2019)
+Welcome to the GitHub repository for the following publication: [The mutational landscape of a prion-like domain (Bolognesi B & Faure AJ et al., 2019)](https://www.biorxiv.org/content/10.1101/592121v1)
 
 Here you'll find an R package with all scripts to reproduce the figures and results from the computational analyses described in the paper.
 
