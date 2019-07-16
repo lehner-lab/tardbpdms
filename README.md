@@ -33,7 +33,7 @@ library(tardbpdms)
 
 # Required Data
 
-Variant counts, pre-processed data and required miscellaneous files should be downloaded from [here](https://www.dropbox.com/s/nbuvtfler395rcd/tardbpdms_misc.zip?dl=0) to your project directory (see 'base_dir' argument) i.e. where output files should be written, and unzipped.
+Variant counts, pre-processed data and required miscellaneous files should be downloaded from [here](https://www.dropbox.com/s/bnyjlsylak843qd/misc.zip?dl=0) to your project directory (see 'base_dir' argument) i.e. where output files should be written, and unzipped.
 
 # Running
 
