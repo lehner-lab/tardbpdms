@@ -1,6 +1,6 @@
 # Overview
 
-Welcome to the GitHub repository for the following publication: "The mutational landscape of a prion-like domain" (Bolognesi B & Faure AJ et al., 2019)
+Welcome to the GitHub repository for the following publication: [The mutational landscape of a prion-like domain (Bolognesi B & Faure AJ et al., 2019)](https://www.biorxiv.org/content/10.1101/592121v1)
 
 Here you'll find an R package with all scripts to reproduce the figures and results from the computational analyses described in the paper.
 
@@ -33,7 +33,7 @@ library(tardbpdms)
 
 # Required Data
 
-Variant counts, pre-processed data and required miscellaneous files should be downloaded from [here](https://www.dropbox.com/s/nbuvtfler395rcd/tardbpdms_misc.zip?dl=0) to your project directory (see 'base_dir' argument) i.e. where output files should be written, and unzipped.
+Variant counts, pre-processed data and required miscellaneous files should be downloaded from [here](https://www.dropbox.com/s/bnyjlsylak843qd/misc.zip?dl=0) to your project directory (see 'base_dir' argument) i.e. where output files should be written, and unzipped.
 
 # Running
 
