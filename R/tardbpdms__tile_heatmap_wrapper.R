@@ -90,11 +90,11 @@ tardbpdms__tile_heatmap_wrapper<-function(input_matrix,
   order_col <- 1:dim(input_matrix)[2]
   if(cluster %in% c('both', 'row')){
     d <- dist(input_matrix, method = "euclidean") # distance matrix
-    order_row <- hclust(d, method="ward")$order
+    order_row <- hclust(d, method="ward.D")$order
   }
   if(cluster %in% c('both', 'column')){
     d <- dist(t(input_matrix), method = "euclidean") # distance matrix
-    order_col <- hclust(d, method="ward")$order    
+    order_col <- hclust(d, method="ward.D")$order    
   }
   plot_df <- melt(input_matrix[order_row,order_col])
   colnames(plot_df) <- c('y', 'x', 'value')

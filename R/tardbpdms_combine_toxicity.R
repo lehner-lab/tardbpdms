@@ -6,6 +6,7 @@
 #' @param toxicity_list named list of folder paths with toxicity estimates (required)
 #' @param growth_rate_file path to growth rate file (required)
 #' @param outpath output path for plots and saved objects (required)
+#' @param disease_mut_file table of human disease mutations and classifications (required)
 #' @param colour_scheme colour scheme file (required)
 #' @param execute whether or not to execute the analysis (default: TRUE)
 #'
@@ -15,6 +16,7 @@
 tardbpdms_combine_toxicity <- function(
   toxicity_list,
   growth_rate_file,
+  disease_mut_file,
   outpath,
   colour_scheme,
   execute = TRUE
@@ -74,6 +76,11 @@ tardbpdms_combine_toxicity <- function(
 	dms_dt[STOP==T, mut_type := "STOP"]
 	dms_dt[Nmut_codons >= 3 & Nmut_aa==0, mut_type := paste0("Nmut_aa: 0, Nmut_codons: >=3")]
 	dms_dt[, mut_type := factor(mut_type, levels = unique(mut_type[order(Nmut_aa+10*as.numeric(STOP), Nmut_codons, decreasing = F)]))]
+
+	#Add disease mutation information
+	dis_mut <- read.table(disease_mut_file, header = T, sep = "\t", stringsAsFactors = F, row.names = 1)
+	dms_dt[, hmut_cat := "healthy"]
+	dms_dt[mut_code %in% rownames(dis_mut), hmut_cat := "diseased"]
 
 	### 1. Untransformed data
 	###########################
@@ -252,6 +259,9 @@ tardbpdms_combine_toxicity <- function(
 		height = 3)
 
 	#Plot centered and scaled distributions (for singles and doubles combined) with STOP bound (x axis limits according to 99% of single and double mutant data)
+	xlim_focus <- quantile(unlist(dms_dt_center_scale[Nmut_aa==1 | Nmut_aa==2,.(fitness, fitness_cond)]), probs = c(0.005, 0.995), na.rm = T)
+	xlim_focus[1] <- -(xlim_focus[1]-0.05)
+	xlim_focus[2] <- -(xlim_focus[2]+0.05)
 	tardbpdms__plot_toxicity_distributions(
 		input_dt = dms_dt_center_scale[Nmut_aa %in% c(1, 2) & !STOP,], 
 		output_file = file.path(outpath, 'single_double_syn_mutant_toxicity_hist_center_scale_upperbound_xlimfocus_combined.pdf'),
@@ -262,6 +272,14 @@ tardbpdms_combine_toxicity <- function(
 		width = 4,
 		height = 3,
 		facet_by_mut_type = F)
+
+	#Plot centered and scaled distributions (for human disease mutations only)
+  d <- ggplot2::ggplot(dms_dt_center_scale[hmut_cat == "diseased",], ggplot2::aes(as.factor(0), toxicity)) +
+  	ggplot2::geom_boxplot() +
+    ggplot2::xlab("Toxicity")	+
+    ggplot2::theme_classic() +
+    ggplot2::coord_cartesian(ylim = xlim_focus)
+  ggplot2::ggsave(file=file.path(outpath, 'single_double_syn_mutant_toxicity_hist_center_scale_upperbound_xlimfocus_combined_hmut.pdf'), width=1, height=4)
 
 	### Mutation statistics
 	###########################

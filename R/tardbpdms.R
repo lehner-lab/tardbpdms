@@ -92,6 +92,7 @@ tardbpdms <- function(
 			"290" = file.path(base_dir, "002_tardbpdms_quality_control", "290"),
 			"332" = file.path(base_dir, "002_tardbpdms_quality_control", "332")),
 		growth_rate_file = file.path(base_dir, "misc", "single_mutants_growth_rates.txt"),
+		disease_mut_file = file.path(base_dir, "misc", "tdp43_reported_mutations.txt"),
 		outpath = tardbpdms__format_dir(dir_suffix="_tardbpdms_combine_toxicity", stagenum=stagenum, base_dir=base_dir),
 		colour_scheme = colour_scheme,
 		execute = (first_stage <= stagenum & (last_stage == 0 | last_stage >= stagenum)))

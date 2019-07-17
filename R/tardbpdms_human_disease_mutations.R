@@ -73,6 +73,8 @@ tardbpdms_human_disease_mutations <- function(
 	tox_dt[, hmut_recurrent := FALSE]
 	tox_dt[mut_code %in% names(num_patients)[num_patients>1], hmut_recurrent := TRUE]
 
+	fwrite(tox_dt[mut_code %in% rownames(dis_mut),], file = "dis_mut_tab.tsv", sep = "\t")
+
 	### Toxicity bias of TDP-43 mutations
 	###########################
 

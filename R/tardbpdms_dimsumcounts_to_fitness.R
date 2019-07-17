@@ -379,14 +379,14 @@ tardbpdms_dimsumcounts_to_fitness <- function(
   print(replicate_error) #roughly 1% replicate error
 
   #Average sigma versus fitness replicate error
-  d <- ggplot2::ggplot(dataset_syn[isNA==0],ggplot2::aes(avg_sigma)) +
-    ggplot2::geom_point(ggplot2::aes(y=sqrt(var_fitness))) +
+  d <- ggplot2::ggplot(dataset_syn[isNA==0 & !is.infinite(avg_sigma)],ggplot2::aes(avg_sigma)) +
+    ggplot2::geom_point(ggplot2::aes(y=sqrt(var_fitness)), alpha=0.5, shape=".") +
     ggplot2::geom_line(ggplot2::aes(y=sqrt(avg_sigma_fit)),color="red") +
-    ggplot2::geom_line(ggplot2::aes(y=sqrt(avg_sigma^2 + replicate_error^2)),color="darkgreen") +
-    ggplot2::geom_abline(color="yellow",linetype=2) + 
+    ggplot2::geom_line(ggplot2::aes(y=sqrt(avg_sigma^2 + replicate_error^2)),color="blue") +
+    ggplot2::geom_abline(color="darkgrey",linetype=2) + 
     ggplot2::scale_x_log10() + 
     ggplot2::scale_y_log10()
-  ggplot2::ggsave(file.path(outpath, "5_fitness_replicateerror_vs_avgsigma.pdf"), d, width = 7, height = 5)
+  ggplot2::ggsave(file.path(outpath, "5_fitness_replicateerror_vs_avgsigma.pdf"), d, width = 5, height = 5)
 
   #### singles
   fitness_rx = singles_silent[,.SD,.SDcols = grep(paste0("fitness[", all_reps_str, "]"),colnames(singles_silent))]

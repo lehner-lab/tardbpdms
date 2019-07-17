@@ -168,30 +168,30 @@ tardbpdms_secondary_structure_predictions <- function(
 	### Secondary structure significance - association score (both positive and negative epistasis) - deepcontact
 	###########################
 
-	ss_dt <- rbind(
-		result_list[["PWI_cond_290_deepcontact"]][["secondary_structure_score"]][["association_score"]][, region := "290"][, score_type := "association_score"],
-		result_list[["PWI_cond_332_deepcontact"]][["secondary_structure_score"]][["association_score"]][, region := "332"][, score_type := "association_score"])
-	ss_dt[, Pos_abs := as.numeric(region)+Pos1-1]
+	# ss_dt <- rbind(
+	# 	result_list[["PWI_cond_290_deepcontact"]][["secondary_structure_score"]][["association_score"]][, region := "290"][, score_type := "association_score"],
+	# 	result_list[["PWI_cond_332_deepcontact"]][["secondary_structure_score"]][["association_score"]][, region := "332"][, score_type := "association_score"])
+	# ss_dt[, Pos_abs := as.numeric(region)+Pos1-1]
 
-	#Line plot
-	plot_dt <- copy(ss_dt)[score_type == "association_score",]
-	plot_dt[, alpha_helix_pval := -log10(alpha_p_seed0)]
-	plot_dt[, beta_strand_pval := -log10(beta_p_seed0)]
-	plot_df <- reshape2::melt(as.data.frame(plot_dt[,.(Pos_abs, alpha_helix_pval, beta_strand_pval)]), id = 'Pos_abs')
-	data_min <- min(plot_df[,'value']) + 0.2*min(plot_df[,'value'])
-	data_max <- max(plot_df[,'value']) + 0.2*max(plot_df[,'value'])
-	d <- ggplot2::ggplot(plot_df, ggplot2::aes(Pos_abs, value, color=variable)) +
-	  ggplot2::geom_rect(ggplot2::aes(xmin=min(Pos_abs_hotspot), xmax=max(Pos_abs_hotspot), ymin=data_min, ymax=data_max), fill = "lightgrey", linetype = 0, alpha = 0.1) +
-	  ggplot2::geom_rect(ggplot2::aes(xmin=min(LARKS_coords), xmax=max(LARKS_coords), ymin=data_min, ymax=data_max), fill = NA, linetype = 1, color = "black") +
-	  ggplot2::geom_rect(ggplot2::aes(xmin=min(helix_coords), xmax=max(helix_coords), ymin=data_min, ymax=data_max), fill = NA, linetype = 1, color = "black") +
-	  ggplot2::geom_vline(xintercept = median(Pos_abs_all), linetype = 2) +
-	  ggplot2::geom_hline(yintercept = -log10(0.05), linetype = 2) +
-	  ggplot2::geom_line() +
-	  ggplot2::theme_classic()
-  if(!is.null(colour_scheme)){
-    d <- d + ggplot2::scale_colour_manual(values = unlist(colour_scheme[["shade 0"]][c(4, 2)]))
-  }
-	ggplot2::ggsave(file=file.path(outpath, 'tdp43_ss_pred_association_score_all_deepcontact.pdf'), width=8, height=3)
+	# #Line plot
+	# plot_dt <- copy(ss_dt)[score_type == "association_score",]
+	# plot_dt[, alpha_helix_pval := -log10(alpha_p_seed0)]
+	# plot_dt[, beta_strand_pval := -log10(beta_p_seed0)]
+	# plot_df <- reshape2::melt(as.data.frame(plot_dt[,.(Pos_abs, alpha_helix_pval, beta_strand_pval)]), id = 'Pos_abs')
+	# data_min <- min(plot_df[,'value']) + 0.2*min(plot_df[,'value'])
+	# data_max <- max(plot_df[,'value']) + 0.2*max(plot_df[,'value'])
+	# d <- ggplot2::ggplot(plot_df, ggplot2::aes(Pos_abs, value, color=variable)) +
+	#   ggplot2::geom_rect(ggplot2::aes(xmin=min(Pos_abs_hotspot), xmax=max(Pos_abs_hotspot), ymin=data_min, ymax=data_max), fill = "lightgrey", linetype = 0, alpha = 0.1) +
+	#   ggplot2::geom_rect(ggplot2::aes(xmin=min(LARKS_coords), xmax=max(LARKS_coords), ymin=data_min, ymax=data_max), fill = NA, linetype = 1, color = "black") +
+	#   ggplot2::geom_rect(ggplot2::aes(xmin=min(helix_coords), xmax=max(helix_coords), ymin=data_min, ymax=data_max), fill = NA, linetype = 1, color = "black") +
+	#   ggplot2::geom_vline(xintercept = median(Pos_abs_all), linetype = 2) +
+	#   ggplot2::geom_hline(yintercept = -log10(0.05), linetype = 2) +
+	#   ggplot2::geom_line() +
+	#   ggplot2::theme_classic()
+ #  if(!is.null(colour_scheme)){
+ #    d <- d + ggplot2::scale_colour_manual(values = unlist(colour_scheme[["shade 0"]][c(4, 2)]))
+ #  }
+	# ggplot2::ggsave(file=file.path(outpath, 'tdp43_ss_pred_association_score_all_deepcontact.pdf'), width=8, height=3)
 
 
 }

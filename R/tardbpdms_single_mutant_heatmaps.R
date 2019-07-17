@@ -59,6 +59,21 @@ tardbpdms_single_mutant_heatmaps <- function(
 		colour_low=colour_scheme[["shade 0"]][[3]], 
 		colour_high=colour_scheme[["shade 0"]][[1]])
 
+	#Toxicity - cluster positions
+	tardbpdms__single_mutant_heatmap(
+		input_df = as.data.frame(dms_dt), 
+		variable_name="toxicity", 
+		output_file = file.path(outpath, 'heatmap_toxicity_center_scale_colcluster.pdf'),
+		x_annotation="both", 
+		xaxis_angle=90, 
+		na_colour="white", 
+		na_text="-", 
+		colour_low=colour_scheme[["shade 0"]][[3]], 
+		colour_high=colour_scheme[["shade 0"]][[1]],
+		cluster="column",
+		width=24,
+		height=8)
+
 	#Toxicity (ALS mutations)
 	tardbpdms__single_mutant_heatmap(
 		input_df = as.data.frame(dms_dt), 

@@ -39,12 +39,45 @@ tardbpdms_quality_control <- function(
 	#Rename column names consistently
 	names(dms_dt1)[grep('toxicity[1-4]$', names(dms_dt1))] <- paste0("toxicity", 1:length(grep('toxicity[1-4]$', names(dms_dt1))))
 	names(dms_dt2)[grep('toxicity[1-4]$', names(dms_dt2))] <- paste0("toxicity", 1:length(grep('toxicity[1-4]$', names(dms_dt2))))
+	names(dms_dt1)[grep('toxicity[1-4]_uncorr$', names(dms_dt1))] <- paste0("toxicity", 1:length(grep('toxicity[1-4]_uncorr$', names(dms_dt1))), "_uncorr")
+	names(dms_dt2)[grep('toxicity[1-4]_uncorr$', names(dms_dt2))] <- paste0("toxicity", 1:length(grep('toxicity[1-4]_uncorr$', names(dms_dt2))), "_uncorr")
 	names(dms_dt1)[grep('toxicity[1-4]_cond$', names(dms_dt1))] <- paste0("toxicity", 1:length(grep('toxicity[1-4]_cond$', names(dms_dt1))), "_cond")
 	names(dms_dt2)[grep('toxicity[1-4]_cond$', names(dms_dt2))] <- paste0("toxicity", 1:length(grep('toxicity[1-4]_cond$', names(dms_dt2))), "_cond")
+	names(dms_dt1)[grep('sigma[1-4]$', names(dms_dt1))] <- paste0("sigma", 1:length(grep('sigma[1-4]$', names(dms_dt1))))
+	names(dms_dt2)[grep('sigma[1-4]$', names(dms_dt2))] <- paste0("sigma", 1:length(grep('sigma[1-4]$', names(dms_dt2))))
+	names(dms_dt1)[grep('sigma[1-4]_uncorr$', names(dms_dt1))] <- paste0("sigma", 1:length(grep('sigma[1-4]_uncorr$', names(dms_dt1))), "_uncorr")
+	names(dms_dt2)[grep('sigma[1-4]_uncorr$', names(dms_dt2))] <- paste0("sigma", 1:length(grep('sigma[1-4]_uncorr$', names(dms_dt2))), "_uncorr")
+	names(dms_dt1)[grep('sigma[1-4]_cond$', names(dms_dt1))] <- paste0("sigma", 1:length(grep('sigma[1-4]_cond$', names(dms_dt1))), "_cond")
+	names(dms_dt2)[grep('sigma[1-4]_cond$', names(dms_dt2))] <- paste0("sigma", 1:length(grep('sigma[1-4]_cond$', names(dms_dt2))), "_cond")
 
-	#Combine regions
+	#Combine regions for supplemental table
 	dms_dt1[, region := names(toxicity_list)[1]]
 	dms_dt2[, region := names(toxicity_list)[2]]
+	dms_dt <- rbind(
+		dms_dt1[,.SD,,.SDcols = c("Pos", "WT_AA", "Mut", "Nmut_nt", "Nmut_codons", "sigma", "toxicity", "toxicity_cond",
+			"Pos1", "Pos2", "WT_AA1", "WT_AA2", "Mut1", "Mut2", "Nmut_aa", "region", "STOP", "mean_count", "is.reads0",
+			names(dms_dt1)[grep('toxicity[1-4]$', names(dms_dt1))], names(dms_dt1)[grep('toxicity[1-4]_uncorr$', names(dms_dt1))], names(dms_dt1)[grep('toxicity[1-4]_cond$', names(dms_dt1))],
+			names(dms_dt1)[grep('sigma[1-4]$', names(dms_dt1))], names(dms_dt1)[grep('sigma[1-4]_uncorr$', names(dms_dt1))], names(dms_dt1)[grep('sigma[1-4]_cond$', names(dms_dt1))])], 
+		dms_dt2[,.SD,,.SDcols = c("Pos", "WT_AA", "Mut", "Nmut_nt", "Nmut_codons", "sigma", "toxicity", "toxicity_cond", 
+			"Pos1", "Pos2", "WT_AA1", "WT_AA2", "Mut1", "Mut2", "Nmut_aa", "region", "STOP", "mean_count", "is.reads0",
+			names(dms_dt2)[grep('toxicity[1-4]$', names(dms_dt2))], names(dms_dt2)[grep('toxicity[1-4]_uncorr$', names(dms_dt2))], names(dms_dt2)[grep('toxicity[1-4]_cond$', names(dms_dt2))],
+			names(dms_dt2)[grep('sigma[1-4]$', names(dms_dt2))], names(dms_dt2)[grep('sigma[1-4]_uncorr$', names(dms_dt2))], names(dms_dt2)[grep('sigma[1-4]_cond$', names(dms_dt2))])])
+	#Remove missing toxicity values
+	dms_dt <- dms_dt[!is.na(toxicity) | !is.na(toxicity_cond),]
+	#Absolute position (singles)
+	dms_dt[, Pos_abs := Pos+as.numeric(region)-1]
+	#Absolute position (doubles)
+	dms_dt[, Pos_abs1 := Pos1+as.numeric(region)-1]
+	dms_dt[, Pos_abs2 := Pos2+as.numeric(region)-1]
+	#Mutation code (singles)
+	dms_dt[, mut_code := paste0(WT_AA, Pos_abs, Mut)]
+	#Mutation code (doubles)
+	dms_dt[, mut_code1 := paste0(WT_AA1, Pos_abs1, Mut1)]
+	dms_dt[, mut_code2 := paste0(WT_AA2, Pos_abs2, Mut2)]
+	#Supplementary data file
+	fwrite(dms_dt[is.reads0==T,], file = file.path(outpath, "supplementary_table_raw_toxicity_estimates_all.txt"), sep = "\t")
+
+	#Combine regions for QC
 	dms_dt <- rbind(
 		dms_dt1[,.SD,,.SDcols = c("Nmut_aa", "region", "toxicity", "toxicity_cond", "toxicity_uncorr", "STOP", "mean_count", "is.reads0",
 			names(dms_dt1)[grep('toxicity[1-4]$', names(dms_dt1))], names(dms_dt1)[grep('toxicity[1-4]_cond$', names(dms_dt1))])], 

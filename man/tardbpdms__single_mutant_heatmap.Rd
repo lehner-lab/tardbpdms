@@ -8,7 +8,7 @@ tardbpdms__single_mutant_heatmap(input_df, variable_name = "fitness",
   mut_dict = NULL, text_size = 2.5, output_file, colour_low = "blue",
   colour_high = "red", width = 12, height = 4,
   x_annotation = "position", xaxis_angle = 90, na_colour = "grey50",
-  na_text = "")
+  na_text = "", cluster = "none")
 }
 \arguments{
 \item{input_df}{matrix of heatmap values (required)}
@@ -36,6 +36,8 @@ tardbpdms__single_mutant_heatmap(input_df, variable_name = "fitness",
 \item{na_colour}{colour to use for NA values (default:"grey50")}
 
 \item{na_text}{cell text annotation to use for NA values (default:empty string)}
+
+\item{cluster}{heirarchically cluster (default:none)}
 }
 \value{
 Nothing

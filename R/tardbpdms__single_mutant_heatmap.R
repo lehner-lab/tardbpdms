@@ -16,6 +16,7 @@
 #' @param xaxis_angle rotation angle for x tick labels -- passed to element_text (default:90)
 #' @param na_colour colour to use for NA values (default:"grey50")
 #' @param na_text cell text annotation to use for NA values (default:empty string)
+#' @param cluster heirarchically cluster (default:none)
 #'
 #' @return Nothing
 #' @export
@@ -33,7 +34,8 @@ tardbpdms__single_mutant_heatmap<-function(
   x_annotation="position", 
   xaxis_angle=90, 
   na_colour="grey50", 
-  na_text=""){
+  na_text="",
+  cluster="none"){
 
   aa_obj <- Biostrings::AAString("GAVLMIFYWKRHDESTCNQP")
   aa_list <- Biostrings::AMINO_ACID_CODE[strsplit(as.character(aa_obj), NULL)[[1]]]
@@ -77,14 +79,16 @@ tardbpdms__single_mutant_heatmap<-function(
     heat_mat_text[is.na(heat_mat)] <- na_text
   }
   xtick_labels <- NULL
-  if(x_annotation == "both"){
-    xtick_labels <- paste0(colnames(heat_mat), ":", wt_seq)
-  }else if(x_annotation == "sequence"){
-    xtick_labels <- wt_seq
-  }else if(x_annotation == "position"){
-    xtick_labels <- colnames(heat_mat)
+  if(cluster=="none"){
+    if(x_annotation == "both"){
+      xtick_labels <- paste0(colnames(heat_mat), ":", wt_seq)
+    }else if(x_annotation == "sequence"){
+      xtick_labels <- wt_seq
+    }else if(x_annotation == "position"){
+      xtick_labels <- colnames(heat_mat)
+    }
   }
-  colnames(heat_mat) <- paste0(":",colnames(heat_mat))
+  colnames(heat_mat) <- paste0(colnames(heat_mat), "\n", wt_seq)
   #Plot
   tardbpdms__tile_heatmap_wrapper(
     heat_mat, 
@@ -95,7 +99,7 @@ tardbpdms__single_mutant_heatmap<-function(
     colour_high = colour_high, 
     xlab = "TDP-43 amino acid position", 
     ylab = "Mutant AA", 
-    cluster = "none", 
+    cluster = cluster, 
     width = width, 
     height = height, 
     xaxis_angle = xaxis_angle, 
